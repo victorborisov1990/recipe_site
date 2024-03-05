@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+
+      {% load static %}
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+  </head>
+  <header>
+    <nav class="navigation">
+      <ul class="menu">
+          <li><a class="navigation__link" href="/">Главная</a></li>
+          <li><a class="navigation__link" href="{% url 'all_recipes' %}">Все рецепты</a></li>
+          {% if request.user.is_authenticated %}
+            <li><a class="navigation__link" href="{% url 'user_recipes' user_id=request.user.id %}">Мои рецепты</a></li>
+          <li> <a class="navigation__link">{{user.username}}</a> | <a class="navigation__link" href="{% url 'logout' %}">Выйти</a></li>
+          {% else %}
+            <li><a class="navigation__link" href="{% url 'login' %}">Мои рецепты</a></li>
+            <li><a class="navigation__link" href="{% url 'register' %}">Регистрация</a> |
+                <a class="navigation__link" href="{% url 'login' %}">Войти</a></li>
+          {% endif %}
+      </ul>
+    </nav>
+  </header>
+  <body>
+
+    {% block content %} Пустая страница {% endblock %}
+
+  </body>
+<footer>
+  <div class="footer">
+      <li class="link__menu"><a href="#">About Us</a></li>
+      <li class="link__menu"><a href="#">Services</a></li>
+      <li class="link__menu"><a href="#">Features</a></li>
+      <li class="link__menu"><a href="#">Team</a></li>
+      <li class="link__menu"><a href="#">Blog</a></li>
+      <li class="link__menu"><a href="#">Contact</a></li>
+    </div>
+</footer>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h3 class="title2">{{ title_h3 }}</h3>
+
+<div class="content">
+
+    {% for recipe in recipes %}
+        <div class="tile">
+            <h3 class="title3"><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }} </a></h3>
+            <p class="text">{{ recipe.category }} </p>
+            {% if recipe.image %}
+                <img class="img" src="{{ recipe.image.url }}" height="300" alt="recipe img">
+            {% else %}
+                <img class="img" src="{{ MEDIA_URL }}default.png" height="300" alt="recipe img">
+            {% endif %}
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

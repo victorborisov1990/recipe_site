@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{# load static #}
+
+<div class="block">
+    <h3>{{ title_h3 }}</h3>
+
+    <table>
+        <tr>
+            <td>
+                <h2>{{ recipe.name }}</h2>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {% if recipe.image != '' %}
+                    <img class="img" src="{{ recipe.image.url }}" height="200" alt="recipe img">
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ recipe.category }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+            {{ recipe.description }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Время приготовления: </p>
+                {{ recipe.cook_time }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Шаги приготовления: </p>
+                <ul>
+                    {% for step in recipe.split_steps %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Автор: <a href="{% url 'user_recipes' user_id=recipe.author.id %}">{{ recipe.author.username }}</a></p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>Добавлено на сайт: {{ recipe.added_date }}</p>
+            </td>
+        </tr>
+    </table>
+<!--   показывать кнопку редактирования только автору /-->
+    {% if recipe.author.pk == request.user.pk %}
+        <button onclick="window.location.href = '{% url 'update_recipe' pk=recipe.pk %}';">Редактировать</button>
+        <button onclick="window.location.href = '{% url 'delete_recipe' pk=recipe.pk %}';">Удалить</button>
+    {% endif %}
+</div>
+
+
+{% endblock %}

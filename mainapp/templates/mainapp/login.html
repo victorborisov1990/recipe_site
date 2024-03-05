@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>{{ title_h3 }}</h3>
+
+<div class="error">{{ form.non_field_errors }}</div>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for f in form %}
+        <p>{{ f }}</p>
+        <div class="error">{{ f.errors }}</div>
+    {% endfor %}
+
+    <button type="submit">Войти</button>
+</form>
+
+
+{% endblock %}

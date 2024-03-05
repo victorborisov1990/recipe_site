@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="title"> {{ client }} </h2>
+<div class="block">
+    <h3>Продукты из заказов за последние 7 дней</h3>
+    <ol>
+        {% for product in product_list_7 %}
+        <li> {{ product.name }}</li>
+    {% endfor %}
+    </ol>
+
+    <h3>Продукты из заказов за последние 30 дней</h3>
+    <ol>
+    {% for product in product_list_30 %}
+        <li> {{ product.name }}</li>
+    {% endfor %}
+    </ol>
+
+    <h3>Продукты из заказов за последние 365 дней</h3>
+    <ol>
+    {% for product in product_list_365 %}
+        <li> {{ product.name }}</li>
+    {% endfor %}
+    </ol>
+</div>
+
+
+{% endblock %}

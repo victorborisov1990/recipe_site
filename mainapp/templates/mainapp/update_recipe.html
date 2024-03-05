@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>{{ title_h3 }}</h3>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="error">{{ form.non_field_errors }}</div>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <p>{{ field.label }} </p>
+        <p>{{ field }}</p>
+        <div class="error">{{ f.errors }}</div>
+    {% endfor %}
+
+<input type="submit" value="Сохранить">
+</form>
+
+
+
+{% endblock %}
