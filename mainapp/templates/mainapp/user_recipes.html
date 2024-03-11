@@ -1,38 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{# load static #}
 
 <div class="block">
-    <h3>{{ title_h3 }}</h3>
-
-    {% if messages %}
-        <ul style="color:red">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <h3 class="title2">{{ title_h3 }}</h3>
 
     {% if recipes %}
 
         {% with author_id=recipes.0.author.pk %}
 	        {% if author_id == request.user.id %}<!-- показывать кнопку добавить только автору -->
-        	    <p>  <a href="{% url 'new_recipe' %}">Добавить новый рецепт</a> </p>
+                <p class="recipe_text_center">
+                <button class="button" onclick="window.location.href = '{% url 'new_recipe'  %}';">новый рецепт</button>
+                </p>
             {% endif %}
         {% endwith %}
 
-        <ol>
         {% for recipe in recipes %}
-            <li> <a href="{{ recipe.get_absolute_url }}">{{ recipe.name }} </a> </li>
-            <p>{{ recipe.category }}</p>
+            <p class="recipe_text_center"><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }} </a> ({{ recipe.category }}) </p>
+            <p class="recipe_img_center">
             {% if recipe.image %}
-                <img class="img" src="{{ recipe.image.url }}" height="100" alt="recipe img">
+                <img class="img_user" src="{{ recipe.image.url }}" alt="recipe img">
             {% else %}
-                <img class="img" src="{{ MEDIA_URL }}default.png" height="100" alt="recipe img">
+                <img class="img_user" src="{{ MEDIA_URL }}default.png" alt="recipe img">
             {% endif %}
+            </p>
         {% endfor %}
-        </ol>
+
     {% else %}
         <p> Пока тут нет ни одного рецепта </p>
     {% endif %}

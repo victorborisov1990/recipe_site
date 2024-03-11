@@ -1,24 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>{{ title_h3 }}</h3>
 
-{% if request.user.is_authenticated %}
-    <div class="error">{{ form.non_field_errors }}</div>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+<div class="block">
 
-        {% for field in form %}
-            <p>{{ field.label }} </p>
-            <p>{{ field }}</p>
-            <div class="error">{{ f.errors }}</div>
-        {% endfor %}
+    <h3 class="title2">{{ title_h3 }}</h3>
 
-    <input type="submit" value="Добавить">
-</form>
+    {% if request.user.is_authenticated %}
+        <div class="error">{{ form.non_field_errors }}</div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
 
-{% else %}
-        <p> Чтобы добавлять рецепты, <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>  </p>
-{% endif %}
+            {% for field in form %}
+                <p class="recipe_text_center">{{ field.label }} </p>
+                <p class="recipe_text_center">{{ field }}</p>
+                <div class="error">{{ f.errors }}</div>
+            {% endfor %}
+
+            <p class="recipe_text_center"><input class="button" type="submit" value="Добавить"></p>
+    </form>
+
+    {% else %}
+            <p> Чтобы добавлять рецепты, <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>  </p>
+    {% endif %}
+
+</div>
 
 {% endblock %}

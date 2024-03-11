@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>{{ title_h3 }}</h3>
+<div class="block">
+    <h3 class="title2">{{ title_h3 }}</h3>
 
-<form action="{% url 'delete_recipe' pk=object.pk%}" method="POST">
-    {% csrf_token %}
-    <a href="{% url 'user_recipes' user_id=object.author.pk%}">Отмена</a>
-    <input type="submit" value="Удалить">
-</form>
+    <form action="{% url 'delete_recipe' pk=object.pk%}" method="POST">
+        {% csrf_token %}
 
+        <p class="recipe_text_center">
+            <a href="{% url 'user_recipes' user_id=object.author.pk%}">Отмена</a>
+            <input class="button" type="submit" value="Удалить">
+        </p>
+    </form>
+</div>
 {% endblock %}

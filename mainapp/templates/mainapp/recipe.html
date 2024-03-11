@@ -1,43 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{# load static #}
+
 
 <div class="block">
-    <h3>{{ title_h3 }}</h3>
-
+    <h3 class="title2">{{ title_h3 }}</h3>
     <table>
         <tr>
             <td>
-                <h2>{{ recipe.name }}</h2>
+                <h2 class="title3">{{ recipe.name }}</h2>
             </td>
         </tr>
         <tr>
             <td>
-                {% if recipe.image != '' %}
-                    <img class="img" src="{{ recipe.image.url }}" height="200" alt="recipe img">
-                {% endif %}
+                <p class="recipe_img_center">
+                    {% if recipe.image != '' %}
+                        <img class="img_user" src="{{ recipe.image.url }}" alt="recipe img">
+                    {% else %}
+                        <img class="img_main" src="{{ MEDIA_URL }}default.png" alt="recipe img">
+                    {% endif %}
+                </p>
             </td>
         </tr>
         <tr>
             <td>
-                {{ recipe.category }}
+                <p class="recipe_text_left"> Категория: {{ recipe.category }} </p>
             </td>
         </tr>
         <tr>
             <td>
-            {{ recipe.description }}
+                <p class="recipe_text_left"> Описание блюда: {{ recipe.description }} </p>
             </td>
         </tr>
         <tr>
             <td>
-                <p>Время приготовления: </p>
-                {{ recipe.cook_time }}
+                <p class="recipe_text_left">Время приготовления: {{ recipe.cook_time }}</p>
             </td>
         </tr>
         <tr>
             <td>
-                <p>Шаги приготовления: </p>
+                <p class="recipe_text_left">Шаги приготовления: </p>
                 <ul>
                     {% for step in recipe.split_steps %}
                         <li>{{ step }}</li>
@@ -47,7 +49,7 @@
         </tr>
         <tr>
             <td>
-                <p>Автор: <a href="{% url 'user_recipes' user_id=recipe.author.id %}">{{ recipe.author.username }}</a></p>
+                <p class="recipe_text_left">Автор: <a href="{% url 'user_recipes' user_id=recipe.author.id %}">{{ recipe.author.username }}</a></p>
             </td>
         </tr>
         <tr>
@@ -56,11 +58,13 @@
             </td>
         </tr>
     </table>
-<!--   показывать кнопку редактирования только автору /-->
-    {% if recipe.author.pk == request.user.pk %}
-        <button onclick="window.location.href = '{% url 'update_recipe' pk=recipe.pk %}';">Редактировать</button>
-        <button onclick="window.location.href = '{% url 'delete_recipe' pk=recipe.pk %}';">Удалить</button>
-    {% endif %}
+    <p class="recipe_text_center">
+        <!--   показывать кнопку редактирования только автору /-->
+        {% if recipe.author.pk == request.user.pk %}
+            <button class="button" onclick="window.location.href = '{% url 'update_recipe' pk=recipe.pk %}';">Изменить</button>
+            <button class="button" onclick="window.location.href = '{% url 'delete_recipe' pk=recipe.pk %}';">Удалить</button>
+        {% endif %}
+    </p>
 </div>
 
 

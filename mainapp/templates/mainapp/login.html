@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>{{ title_h3 }}</h3>
 
-<div class="error">{{ form.non_field_errors }}</div>
+<div class="block">
+    <h3 class="title2">{{ title_h3 }}</h3>
 
-<form method="post">
-    {% csrf_token %}
+    <div class="error">{{ form.non_field_errors }}</div>
 
-    {% for f in form %}
-        <p>{{ f }}</p>
-        <div class="error">{{ f.errors }}</div>
-    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
 
-    <button type="submit">Войти</button>
-</form>
+        {% for f in form %}
+            <p class="recipe_text_center">{{ f }}</p>
+            <div class="error">{{ f.errors }}</div>
+        {% endfor %}
 
+        <p class="recipe_text_center">
+            <button class="button" type="submit">Войти</button>
+        </p>
+    </form>
+</div>
 
 {% endblock %}

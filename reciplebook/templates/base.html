@@ -28,7 +28,19 @@
   </header>
   <body>
 
-    {% block content %} Пустая страница {% endblock %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}
+
+        Пустая страница
+
+    {% endblock %}
 
   </body>
 <footer>

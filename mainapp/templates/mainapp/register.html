@@ -1,13 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>{{ title_h3 }}</h3>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Далее</button>
-</form>
+<div class="block">
 
+    <h3 class="title2">{{ title_h3 }}</h3>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for f in form %}
+            <p class="recipe_text_center">{{ f.label }}</p>
+            <p class="recipe_text_center">{{ f }}</p>
+            <div class="error">{{ f.errors }}</div>
+        {% endfor %}
+
+        {# form.as_p #}
+
+        <p class="recipe_text_center">
+            <button class="button" type="submit">Далее</button>
+        </p>
+    </form>
+
+</div>
 
 {% endblock %}
