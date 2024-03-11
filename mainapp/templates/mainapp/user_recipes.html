@@ -5,16 +5,15 @@
 <div class="block">
     <h3 class="title2">{{ title_h3 }}</h3>
 
+    {% with author_id=recipes.0.author.pk %}
+        {% if author_id == request.user.id %}<!-- показывать кнопку добавить только автору -->
+            <p class="recipe_text_center">
+            <button class="button" onclick="window.location.href = '{% url 'new_recipe'  %}';">новый рецепт</button>
+            </p>
+        {% endif %}
+    {% endwith %}
+
     {% if recipes %}
-
-        {% with author_id=recipes.0.author.pk %}
-	        {% if author_id == request.user.id %}<!-- показывать кнопку добавить только автору -->
-                <p class="recipe_text_center">
-                <button class="button" onclick="window.location.href = '{% url 'new_recipe'  %}';">новый рецепт</button>
-                </p>
-            {% endif %}
-        {% endwith %}
-
         {% for recipe in recipes %}
             <p class="recipe_text_center"><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }} </a> ({{ recipe.category }}) </p>
             <p class="recipe_img_center">
@@ -25,12 +24,9 @@
             {% endif %}
             </p>
         {% endfor %}
-
     {% else %}
-        <p> Пока тут нет ни одного рецепта </p>
+        <p class="recipe_text_center"> Пока тут нет ни одного рецепта </p>
     {% endif %}
-
 </div>
-
 
 {% endblock %}
