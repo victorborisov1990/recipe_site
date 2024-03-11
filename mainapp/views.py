@@ -76,7 +76,7 @@ def all_recipes(request):
 
 def new_recipe(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             name = form.cleaned_data.get('name')
             description = form.cleaned_data.get('description')
@@ -94,7 +94,8 @@ def new_recipe(request):
                 category=category,
                 author=author
             )
-            return user_recipes(request, request.user.pk)
+            return redirect(reverse_lazy('user_recipes', kwargs={'user_id': request.user.pk}))
+
     else:
         form = RecipeForm()
     context = {
