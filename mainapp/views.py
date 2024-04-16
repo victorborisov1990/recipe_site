@@ -123,7 +123,7 @@ class UpdateRecipe(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     }
 
     def dispatch(self, request, *args, **kwargs):
-        """ Making sure that only authors can update stories """
+        """ Making sure that only authors can update recipes """
         obj = self.get_object()
         if obj.author != self.request.user:
             return render(request, 'mainapp/forbidden.html')
@@ -141,6 +141,13 @@ class DeleteRecipe(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         'title': 'Удаление',
         'title_h3': 'Вы действительно хотите удалить рецепт?'
     }
+
+    def dispatch(self, request, *args, **kwargs):
+        """ Making sure that only authors can delete recipes """
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            return render(request, 'mainapp/forbidden.html')
+        return super(DeleteRecipe, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self, *args, **kwargs):
         return reverse_lazy('user_recipes', kwargs={'user_id': self.request.user.id})
